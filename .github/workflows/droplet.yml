@@ -22,3 +22,25 @@ jobs:
         run: python -m flake8 src
       - name: black
         run: python -m black --line-length 119 --check src
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DigitalOcean deploy
+        uses: appleboy/ssh-action@master
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          envs: DISCORD_BOT_TOKEN
+          script: |
+            rm -rf lwm-discord
+            git clone git@github.com:ewm-projects/lwm-discord.git
+            cd lwm-discord
+            touch .env
+            echo DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" >> .env
+            docker compose -f docker-compose.prod.yml build
+            docker compose up -d
+            echo 'Deployment successful'
