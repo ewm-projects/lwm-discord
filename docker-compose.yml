@@ -1,0 +1,9 @@
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/bot
+    environment:
+      - DISCORD_BOT_TOKEN
