@@ -1,5 +1,7 @@
 services:
   bot:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     environment:
       - DISCORD_BOT_TOKEN
