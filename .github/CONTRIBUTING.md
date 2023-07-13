@@ -19,7 +19,6 @@
   - Bot should reply back with `Hello`
 
 ## Github Workflow
-_for more info - [github guidelines](https://github.com/CSSG-Labs/flask-todo-app/wiki/Github-guidelines)_
 
 ### Issues
 - _todo_
